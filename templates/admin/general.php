@@ -4,6 +4,12 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+$this->form->text( array(
+	'id'   => '_view_button_url',
+	'name' => esc_html__( 'External URL', 'necoyoad-carousel-slider' ),
+	'desc' => esc_html__( 'Enter external URL.', 'necoyoad-carousel-slider' ),
+));
+
 $this->form->image_sizes( array(
 	'id'   => esc_html__( '_image_size', 'necoyoad-carousel-slider' ),
 	'name' => esc_html__( 'Carousel Image size', 'necoyoad-carousel-slider' ),

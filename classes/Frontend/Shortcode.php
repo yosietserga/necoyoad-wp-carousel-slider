@@ -53,7 +53,7 @@ class Shortcode {
 
 			return apply_filters( 'carousel_slider_posts_carousel', $html, $id );
 		}
-
+		/*
 		if ( $slide_type == 'video-carousel' ) {
 			wp_enqueue_script( 'magnific-popup' );
 			$_video_urls = array_filter( explode( ',', $this->get_meta( $id, '_video_url' ) ) );
@@ -87,7 +87,6 @@ class Shortcode {
 
 		if ( $slide_type == 'product-carousel' ) {
 
-			/** force frontend assets load **/
 			wp_enqueue_style( 'necoyoad-carousel-slider-frontend' );
 			wp_enqueue_script( 'necoyoad-carousel-slider-frontend' );
 
@@ -123,7 +122,7 @@ class Shortcode {
 
 			return apply_filters( 'Carousel_Slider_Hero_Carousel', $html, $id );
 		}
-
+		*/
 		return '';
 	}
 

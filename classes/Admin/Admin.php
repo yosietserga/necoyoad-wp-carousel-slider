@@ -23,7 +23,6 @@ class Admin {
 			self::$instance = new self();
 
 			add_action( 'admin_enqueue_scripts', [ self::$instance, 'admin_scripts' ], 10 );
-			add_action( 'admin_menu', [ self::$instance, 'documentation_menu' ] );
 			add_filter( 'admin_footer_text', [ self::$instance, 'admin_footer_text' ] );
 		}
 
@@ -69,7 +68,7 @@ class Admin {
 	 * Documentation page callback
 	 */
 	public function documentation_page_callback() {
-		include_once CAROUSEL_SLIDER_TEMPLATES . '/admin/documentation.php';
+		
 	}
 
 	/**

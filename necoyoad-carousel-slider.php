@@ -279,3 +279,4 @@ if ( ! class_exists( 'Carousel_Slider' ) ) {
  * not affect the page life cycle.
  */
 Carousel_Slider::instance();
+
