@@ -517,12 +517,12 @@ if ( ! function_exists( 'carousel_slider_slide_type' ) ) {
 	 */
 	function carousel_slider_slide_type( $key_only = true ) {
 		$types = apply_filters( 'carousel_slider_slide_type', array(
-			'image-carousel'     => __( 'Image Carousel', 'necoyoad-carousel-slider' ),
-			'image-carousel-url' => __( 'Image Carousel (URL)', 'necoyoad-carousel-slider' ),
+			//'image-carousel'     => __( 'Image Carousel', 'necoyoad-carousel-slider' ),
+			//'image-carousel-url' => __( 'Image Carousel (URL)', 'necoyoad-carousel-slider' ),
 			'post-carousel'      => __( 'Post Carousel', 'necoyoad-carousel-slider' ),
-			'product-carousel'   => __( 'Product Carousel', 'necoyoad-carousel-slider' ),
-			'video-carousel'     => __( 'Video Carousel', 'necoyoad-carousel-slider' ),
-			'hero-banner-slider' => __( 'Hero Carousel', 'necoyoad-carousel-slider' ),
+			//'product-carousel'   => __( 'Product Carousel', 'necoyoad-carousel-slider' ),
+			//'video-carousel'     => __( 'Video Carousel', 'necoyoad-carousel-slider' ),
+			//'hero-banner-slider' => __( 'Hero Carousel', 'necoyoad-carousel-slider' ),
 		) );
 
 		if ( $key_only ) {

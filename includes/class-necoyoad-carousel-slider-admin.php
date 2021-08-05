@@ -244,7 +244,7 @@ if ( ! class_exists( 'Carousel_Slider_Admin' ) ) {
 			wp_nonce_field( 'carousel_slider_nonce', '_carousel_slider_nonce' );
 
 			$slide_type = get_post_meta( $post->ID, '_slide_type', true );
-			$slide_type = in_array( $slide_type, carousel_slider_slide_type() ) ? $slide_type : 'image-carousel';
+			$slide_type = in_array( $slide_type, carousel_slider_slide_type() ) ? $slide_type : 'post-carousel';
 
 			require_once CAROUSEL_SLIDER_TEMPLATES . '/admin/types.php';
 			require_once CAROUSEL_SLIDER_TEMPLATES . '/admin/images-media.php';

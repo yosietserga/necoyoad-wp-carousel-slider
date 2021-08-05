@@ -4,6 +4,7 @@ if ( ! defined( 'WPINC' ) ) {
 	die;
 }
 
+$_view_button_url       = get_post_meta( $id, '_view_button_url', true );
 $_image_size       = get_post_meta( $id, '_image_size', true );
 $_nav_color        = get_post_meta( $id, '_nav_color', true );
 $_nav_active_color = get_post_meta( $id, '_nav_active_color', true );
@@ -26,7 +27,7 @@ $_lazy_load_image  = get_post_meta( $id, '_lazy_load_image', true );
 			$html .= '<div class="necoyoad-carousel-slider__post-content">';
 			$html .= '<div class="necoyoad-carousel-slider__post-header">';
 			// Post Thumbnail
-			$_permalink = esc_url( get_permalink( $post->ID ) );
+			$_permalink = esc_url( $_view_button_url );
 			$_thumb_id  = get_post_thumbnail_id( $post->ID );
 			$num_words  = apply_filters( 'carousel_slider_post_excerpt_length', 20 );
 			$more_text  = apply_filters( 'carousel_slider_post_read_more', ' ...', $post );
