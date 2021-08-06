@@ -156,13 +156,13 @@ if ( ! class_exists( 'Carousel_Slider' ) ) {
 		private function includes() {
 			require_once CAROUSEL_SLIDER_INCLUDES . '/functions-necoyoad-carousel-slider.php';
 			require_once CAROUSEL_SLIDER_INCLUDES . '/class-necoyoad-carousel-slider-activator.php';
-			require_once CAROUSEL_SLIDER_INCLUDES . '/class-necoyoad-carousel-slider-product.php';
 
 			if ( $this->is_request( 'admin' ) ) {
 				require_once CAROUSEL_SLIDER_INCLUDES . '/class-necoyoad-carousel-slider-form.php';
 				require_once CAROUSEL_SLIDER_INCLUDES . '/class-necoyoad-carousel-slider-admin.php';
 				require_once CAROUSEL_SLIDER_INCLUDES . '/class-necoyoad-carousel-slider-meta-box.php';
 				require_once CAROUSEL_SLIDER_INCLUDES . '/class-necoyoad-carousel-slider-hero-carousel.php';
+				require_once CAROUSEL_SLIDER_INCLUDES . '/class-necoyoad-carousel-slider-cpt.php';
 			}
 		}
 

@@ -25,7 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( ! class_exists( 'Carousel_Slider_Product' ) ) {
 
 	class Carousel_Slider_Product {
-
+		
 		/**
 		 * The instance of the class
 		 *

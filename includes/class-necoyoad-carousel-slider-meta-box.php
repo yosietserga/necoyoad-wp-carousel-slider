@@ -265,7 +265,7 @@ if ( ! class_exists( 'Carousel_Slider_Meta_Box' ) ):
                        data-default-color="<?php echo carousel_slider_default_settings()->nav_active_color; ?>">
             </p><!-- Arrows & Dots Hover Color -->
 			<?php
-		}
+		} 
 
 		/**
 		 * @param WP_Post $post
