@@ -3,6 +3,8 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
+
+echo '<h3>Versión 1.4.4</h3>';
 ?>
 <div data-id="open" id="section_post_query" class="shapla-toggle shapla-toggle--stroke"
      style="display: <?php echo $slide_type != 'post-carousel' ? 'none' : 'block'; ?>">
@@ -36,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
 			) );
 			$this->form->post_terms( array(
 				'id'       => '_post_categories',
-				'taxonomy' => 'category',
+				'taxonomy' => 'type',
 				'multiple' => true,
 				'name'     => esc_html__( 'Post Categories', 'necoyoad-carousel-slider' ),
 				'desc'     => esc_html__( 'Show posts associated with selected categories.', 'necoyoad-carousel-slider' ),

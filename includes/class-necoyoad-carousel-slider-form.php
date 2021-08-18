@@ -157,7 +157,7 @@ if ( ! class_exists( 'Carousel_Slider_Form' ) ) {
 			list( $name, $value ) = $this->field_common( $args );
 			$value     = explode( ',', $value );
 			$multiple  = isset( $args['multiple'] ) ? 'multiple' : '';
-			$post_type = isset( $args['post_type'] ) ? $args['post_type'] : 'post';
+			$post_type = isset( $args['post_type'] ) ? $args['post_type'] : 'cs_product';
 
 			echo $this->field_before( $args );
 			echo '<select name="' . $name . '" id="' . $args['id'] . '" class="select2 sp-input-text" ' . $multiple . '>';

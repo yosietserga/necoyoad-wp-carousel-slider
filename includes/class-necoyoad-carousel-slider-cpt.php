@@ -1150,8 +1150,6 @@ $product->columns(array(
 	'cb' => '<input type="checkbox" />',
 	'title' => __('Title'),
 	'type' => __('Categorías'),
-	'price' => __('Precio'),
-	'rating' => __('Rating'),
 	'date' => __('Date')
 ));
 

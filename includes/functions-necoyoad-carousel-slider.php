@@ -181,14 +181,15 @@ if ( ! function_exists( 'carousel_slider_posts' ) ) {
 		$per_page   = intval( get_post_meta( $id, '_posts_per_page', true ) );
 		$query_type = get_post_meta( $id, '_post_query_type', true );
 		$query_type = empty( $query_type ) ? 'latest_posts' : $query_type;
-
+		
 		$args = array(
-			'post_type'      => 'post',
+			'post_type'      => 'cs_product',
 			'post_status'    => 'publish',
 			'order'          => $order,
 			'orderby'        => $orderby,
 			'posts_per_page' => $per_page
 		);
+		
 
 		// Get posts by post IDs
 		if ( $query_type == 'specific_posts' ) {
@@ -197,26 +198,38 @@ if ( ! function_exists( 'carousel_slider_posts' ) ) {
 			unset( $args['posts_per_page'] );
 			$args = array_merge( $args, array( 'post__in' => $post_in ) );
 		}
-
+		
 		// Get posts by post catagories IDs
 		if ( $query_type == 'post_categories' ) {
 			$post_categories = get_post_meta( $id, '_post_categories', true );
-			$args            = array_merge( $args, array( 'cat' => $post_categories ) );
+			//var_dump($post_categories);
+			//$args = array_merge( $args, array( 'cat' => $post_categories ) );
+			
+			$args = array_merge( $args, array(
+				'tax_query' => array( 
+					array(
+						'taxonomy' => 'type',
+						'field' => 'term_id',
+						'terms' => $post_categories
+					)
+				) 
+			));
+			
 		}
-
+		
 		// Get posts by post tags IDs
 		if ( $query_type == 'post_tags' ) {
 			$post_tags = get_post_meta( $id, '_post_tags', true );
 			$post_tags = array_map( 'intval', explode( ',', $post_tags ) );
 			$args      = array_merge( $args, array( 'tag__in' => $post_tags ) );
 		}
-
+		
 		// Get posts by date range
 		if ( $query_type == 'date_range' ) {
 
 			$post_date_after  = get_post_meta( $id, '_post_date_after', true );
 			$post_date_before = get_post_meta( $id, '_post_date_before', true );
-
+			
 			if ( $post_date_after && $post_date_before ) {
 				$args = array_merge( $args, array(
 					'date_query' => array(
@@ -247,9 +260,9 @@ if ( ! function_exists( 'carousel_slider_posts' ) ) {
 				) );
 			}
 		}
-
+		
 		$posts = get_posts( $args );
-
+		//var_dump([$args, $posts, new WP_Query($args)]);
 		return $posts;
 	}
 }

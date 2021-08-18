@@ -9,8 +9,10 @@ $_image_size       = get_post_meta( $id, '_image_size', true );
 $_nav_color        = get_post_meta( $id, '_nav_color', true );
 $_nav_active_color = get_post_meta( $id, '_nav_active_color', true );
 $_lazy_load_image  = get_post_meta( $id, '_lazy_load_image', true );
+$carousel_slider_post = get_post($id);
 ?>
 <div class="necoyoad-carousel-slider-outer necoyoad-carousel-slider-outer-posts necoyoad-carousel-slider-outer-<?php echo $id; ?>">
+	<?php if(!empty($carousel_slider_post->post_title)) { ?><h1><?php echo $carousel_slider_post->post_title; ?></h1><?php } ?>
 	<?php carousel_slider_inline_style( $id ); ?>
 	<div <?php echo join( " ", $this->carousel_options( $id ) ); ?>>
 		<?php
@@ -21,28 +23,28 @@ $_lazy_load_image  = get_post_meta( $id, '_lazy_load_image', true );
 			setup_postdata( $post );
 			$category = get_the_category( $post->ID );
 
+			$_price         = get_post_meta( $post->ID, '_price', true );
+			$_price         = (float)$_price ? $_price : 0;
+			$_image         = get_post_meta( $post->ID, '_image', true );
+			$_permalink           = get_post_meta( $post->ID, '_url', true );
+
 			do_action( 'carousel_slider_post_loop', $post, $category );
 
 			$html = '<div class="necoyoad-carousel-slider__post">';
 			$html .= '<div class="necoyoad-carousel-slider__post-content">';
 			$html .= '<div class="necoyoad-carousel-slider__post-header">';
 			// Post Thumbnail
-			$_permalink = esc_url( $_view_button_url );
 			$_thumb_id  = get_post_thumbnail_id( $post->ID );
-			$num_words  = apply_filters( 'carousel_slider_post_excerpt_length', 20 );
-			$more_text  = apply_filters( 'carousel_slider_post_read_more', ' ...', $post );
-			$_content   = apply_filters( 'the_content', $post->post_content );
-			$_excerpt   = wp_trim_words( $_content, $num_words, $more_text );
 
-			if ( has_post_thumbnail( $post ) ) {
-				$image_src = wp_get_attachment_image_src( $_thumb_id, $_image_size );
-
+			$image_src = wp_get_attachment_image_src( $_thumb_id, $_image_size );
+			$image_src = $_image ? $_image : $image_src[0];
+			if ( $image_src ) {
 				if ( $_lazy_load_image == 'on' ) {
 
-					$html .= sprintf( '<a href="%s" class="necoyoad-carousel-slider__post-image owl-lazy" data-src="%s"></a>', $_permalink, $image_src[0] );
+					$html .= sprintf( '<a href="%s"><img class="necoyoad-carousel-slider__post-image owl-lazy" data-src="%s" alt="Image" width="%s" /></a>', $_permalink, $image_src, $_image_size );
 				} else {
 
-					$html .= sprintf( '<a href="%s" class="necoyoad-carousel-slider__post-image" style="background-image: url(%s)"></a>', $_permalink, $image_src[0] );
+					$html .= sprintf( '<a href="%s" class="necoyoad-carousel-slider__post-image" style="background-image: url(%s)"></a>', $_permalink, $image_src );
 				}
 
 			} else {
@@ -53,56 +55,21 @@ $_lazy_load_image  = get_post_meta( $id, '_lazy_load_image', true );
 			// Post Title
 			$html .= sprintf( '<a class="necoyoad-carousel-slider__post-title" href="%s"><h2>%s</h2></a>', $_permalink, $post->post_title );
 			$html .= '</div>'; // End Post Header
-			$html .= '<div class="necoyoad-carousel-slider__post-excerpt">' . $_excerpt . '</div>';
+
+			$html .= '<div class="necoyoad-carousel-slider__post-price"><span>'. $_price .'</span></div>';
 
 			// Footer
 			$html .= '<footer class="necoyoad-carousel-slider__post-meta">';
-			// $html .= '<div class="necoyoad-carousel-slider__post-excerpt-overlay"></div>';
-			$html .= '<div class="necoyoad-carousel-slider__post-publication-meta">';
 			$html .= '<div class="necoyoad-carousel-slider__post-details-info">';
 
-			// Post author
-			$_author_url  = esc_url( get_author_posts_url( intval( $post->post_author ) ) );
-			$_author_name = esc_html( get_the_author_meta( 'display_name', intval( $post->post_author ) ) );
-
-			$html .= sprintf( '<div class="necoyoad-carousel-slider__post-author"><a class="necoyoad-carousel-slider__post-author-link" href="%s">%s</a></div>',
-				$_author_url,
-				$_author_name
-			);
-			// Post date
-			$_created  = strtotime( $post->post_date );
-			$_modified = strtotime( $post->post_modified );
-
-			if ( $_created !== $_modified ) {
-
-				$html .= sprintf( '<time class="necoyoad-carousel-slider__post-publication-date" datetime="%s">%s</time>',
-					date_i18n( 'c', $_modified ),
-					date_i18n( get_option( 'date_format' ), $_modified )
-				);
-
-			} else {
-
-				$html .= sprintf( '<time class="necoyoad-carousel-slider__post-publication-date" datetime="%s">%s</time>',
-					date_i18n( 'c', $_created ),
-					date_i18n( get_option( 'date_format' ), $_created )
-				);
+			if(!empty($_permalink)) {
+			$html .= sprintf( '<a'. (!empty($_nav_color) ? ' style="background:'. $_nav_color .'"':'') .' class="necoyoad-carousel-slider__post-link" href="%s">Ver Producto</a>', $_permalink );
+			$html .= '</div>';
 			}
-			$html .= '</div>';
-			$html .= '</div>';
 
-			// Post catagory
-			$cat_link  = isset( $category[0]->term_id ) ? esc_url( get_category_link( $category[0]->term_id ) ) : '';
-			$cat_title = isset( $category[0]->name ) ? esc_html( $category[0]->name ) : '';
-			$html      .= '<div class="necoyoad-carousel-slider__post-category">';
-			if ( isset( $cat_link ) ) {
-				$html .= sprintf( '<a class="necoyoad-carousel-slider__post-category-link" href="%s">%s</a>',
-					$cat_link,
-					$cat_title
-				);
-			}
-			$html .= '</div>';
 			$html .= '</footer>';
 			$html .= '</div>';
+
 			$html .= '</div>';
 
 			echo apply_filters( 'carousel_slider_post', $html, $post, $category );
@@ -110,4 +77,5 @@ $_lazy_load_image  = get_post_meta( $id, '_lazy_load_image', true );
 		wp_reset_postdata();
 		?>
 	</div>
+	<?php if(!empty($_view_button_url)) { ?><a class="necoyoad-carousel-slider__post-more" href="<?php echo $_view_button_url; ?>">Ver Más</a><?php } ?>
 </div>
